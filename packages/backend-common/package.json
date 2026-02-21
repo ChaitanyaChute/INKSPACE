@@ -2,8 +2,8 @@
   "name": "@repo/backend-common",
   "version": "1.0.0",
   "main": "index.js",
-  "exports":{
-    "./config":"./src/index.ts"
+  "exports": {
+    "./config": "./src/index.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
