@@ -32,7 +32,6 @@ app.post('/signup', async (req, res) => {
 
         if (existingUser) {
             return res.status(409).json({
-                success: false,
                 message: "Email already exists"
             });
         }
@@ -103,6 +102,51 @@ app.post('/signin',async (req,res)=>{
             message: "Internal server error"
         });
     }
+})
+
+app.post('/room',middleware,async (req,res)=>{
+    const validatedData = CreateroomSchema.safeParse(req.body);
+
+    if (!validatedData.success) {
+        res.status(400).json({
+            message: "Incorrect Inputs",
+            errors: validatedData.error.issues.map(err => ({
+                message: err.message,
+            }))
+        });
+        return;
+    }
+
+    const userId = req.userId;
+
+    if (!userId) {
+        return res.status(401).json({
+            message: "Login to create a room"
+        });
+    }
+    try {
+        const room = await prismaClient.room.create({
+            data:{
+                slug:validatedData.data.name,
+                adminId:userId
+            }
+        })
+
+        res.json({
+            roomId: room.id,
+            slug: room.slug
+        })
+        
+    } catch (error) {
+        res.status(411).json({
+            message:"Room name already exists"
+        })
+        return;
+        
+    }
+    
+
+    
 })
 
 
