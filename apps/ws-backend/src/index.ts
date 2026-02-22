@@ -11,7 +11,48 @@ interface User {
   userId: string
 }
 
+interface QueuedMessage {
+  roomId: number;
+  message: string;
+  userId: string;
+  timestamp: Date;
+}
+
 const users: User[] = [];
+const messageQueue: QueuedMessage[] = [];
+let isProcessingQueue = false;
+
+// Queue configuration
+const BATCH_SIZE = 10;          
+const BATCH_INTERVAL = 2000;   
+
+async function processMessageQueue() {
+  if (isProcessingQueue || messageQueue.length === 0) {
+    return;
+  }
+
+  isProcessingQueue = true;
+
+  try {
+    const batch = messageQueue.splice(0, BATCH_SIZE);
+    
+    await prismaClient.chat.createMany({
+      data: batch.map(msg => ({
+        roomId: msg.roomId,
+        message: msg.message,
+        userId: msg.userId
+      }))
+    });
+
+    console.log(` Saved ${batch.length} messages to database`);
+  } catch (error) {
+    console.error("Error processing message queue:", error);
+  } finally {
+    isProcessingQueue = false;
+  }
+}
+
+setInterval(processMessageQueue, BATCH_INTERVAL);
 
 function checkUser(token: string): string | null {
   try {
@@ -90,13 +131,16 @@ wss.on('connection', function connection(ws, request) {
         const roomId = String(parsedData.roomId);
         const message = parsedData.message;
 
-        await prismaClient.chat.create({
-          data: {
-            roomId: Number(roomId),
-            message,
-            userId
-          }
+        messageQueue.push({
+          roomId: Number(roomId),
+          message,
+          userId,
+          timestamp: new Date()
         });
+
+        if (messageQueue.length >= BATCH_SIZE) {
+          processMessageQueue();
+        }
 
         users.forEach(user => {
           if (user.rooms.includes(roomId) && user.ws.readyState === WebSocket.OPEN) {
