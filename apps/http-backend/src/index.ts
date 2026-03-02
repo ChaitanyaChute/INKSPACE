@@ -9,6 +9,13 @@ import { prismaClient } from "@repo/database/client";
 
 const app = express();
 
+const corsOrigins = (process.env.CORS_ORIGINS ?? process.env.FRONTEND_URL ?? "")
+    .split(",")
+    .map(origin => origin.trim())
+    .filter(Boolean);
+
+const allowAllOrigins = corsOrigins.length === 0;
+
 async function resolveRoom(roomIdParam: string | string[] | undefined) {
     if (!roomIdParam || Array.isArray(roomIdParam)) return null;
     const numericId = Number(roomIdParam);
@@ -19,7 +26,7 @@ async function resolveRoom(roomIdParam: string | string[] | undefined) {
 }
 
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3005"],
+    origin: allowAllOrigins ? true : corsOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
