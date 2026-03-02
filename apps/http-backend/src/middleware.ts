@@ -15,17 +15,25 @@ interface CustomJwtPayload extends JwtPayload {
 }
 
 export function middleware(req: Request, res: Response, next: NextFunction) {
-    const token = req.headers["authorization"] ?? "";
+    const authHeader = req.headers["authorization"];
     
-    const decoded = jwt.verify(token, JwT_SECRET) as CustomJwtPayload;
+    if (!authHeader) {
+        return res.status(403).json({
+            message: "No authorization header"
+        });
+    }
 
-    if (decoded) {
+    const token = authHeader.startsWith("Bearer ") 
+        ? authHeader.substring(7) 
+        : authHeader;
+
+    try {
+        const decoded = jwt.verify(token, JwT_SECRET) as unknown as CustomJwtPayload;
         req.userId = decoded.userId;
         next();
-    }
-    else {
-        res.status(403).json({
-            message: "Unauthorized"
-        })
+    } catch (error) {
+        return res.status(403).json({
+            message: "Invalid or expired token"
+        });
     }
 }
