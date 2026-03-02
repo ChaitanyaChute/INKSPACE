@@ -8,22 +8,52 @@ datasource db {
 }
 
 model User {
-  id            String     @id @default(uuid())
-  email         String     @unique
+  id            String        @id @default(uuid())
+  email         String        @unique
   password      String
-  username          String
+  username      String
   photo         String?
   rooms         Room[]
   chats         Chat[]
+  drawings      Drawing[]
+  roomMemberships RoomMember[]
+  joinRequests  JoinRequest[]
 }
 
 model Room {
-  id          Int       @id @default(autoincrement())
-  slug        String    @unique
-  createdAt   DateTime  @default(now())
-  adminId     String
-  admin       User      @relation(fields: [adminId], references: [id])
-  chats       Chat[]
+  id              Int          @id @default(autoincrement())
+  slug            String       @unique
+  createdAt       DateTime     @default(now())
+  adminId         String
+  backgroundColor String       @default("#ffffff")
+  admin           User         @relation(fields: [adminId], references: [id])
+  chats           Chat[]
+  drawings        Drawing[]
+  members         RoomMember[]
+  joinRequests    JoinRequest[]
+}
+
+model RoomMember {
+  id        Int       @id @default(autoincrement())
+  roomId    Int
+  userId    String
+  joinedAt  DateTime  @default(now())
+  room      Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([roomId, userId])
+}
+
+model JoinRequest {
+  id        Int       @id @default(autoincrement())
+  roomId    Int
+  userId    String
+  status    String    @default("pending") // pending, approved, rejected
+  createdAt DateTime  @default(now())
+  room      Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([roomId, userId])
 }
 
 model Chat {
@@ -31,6 +61,20 @@ model Chat {
   roomId    Int
   message   String
   userId    String
-  room      Room      @relation(fields: [roomId], references: [id])
+  room      Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
   user      User      @relation(fields: [userId], references: [id])
+}
+
+model Drawing {
+  id          Int       @id @default(autoincrement())
+  roomId      Int
+  userId      String
+  shapeId     String?
+  shapeType   String
+  shapeData   String
+  createdAt   DateTime  @default(now())
+  room        Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id])
+  
+  @@index([shapeId])
 }
