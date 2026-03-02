@@ -284,12 +284,14 @@ export default async function initDraw(
 
   // Helper function to confirm text input
   const confirmTextInput = () => {
-    if (textInput && textInput.active && textInput.text.trim()) {
-      if (textInput.editingShapeId) {
+    const currentTextInput = textInput;
+
+    if (currentTextInput && currentTextInput.active && currentTextInput.text.trim()) {
+      if (currentTextInput.editingShapeId) {
         // Editing existing text - update it
-        const shapeIndex = shapes.findIndex(s => s.id === textInput.editingShapeId);
+        const shapeIndex = shapes.findIndex(s => s.id === currentTextInput.editingShapeId);
         if (shapeIndex !== -1) {
-          const updatedShape = { ...shapes[shapeIndex], text: textInput.text } as Shape;
+          const updatedShape = { ...shapes[shapeIndex], text: currentTextInput.text } as Shape;
           shapes[shapeIndex] = updatedShape;
           saveToHistory();
           // Broadcast update
@@ -306,9 +308,9 @@ export default async function initDraw(
         // Creating new text
         const newShape: Shape = {
           type: "text",
-          x: textInput.x,
-          y: textInput.y,
-          text: textInput.text,
+          x: currentTextInput.x,
+          y: currentTextInput.y,
+          text: currentTextInput.text,
           color: currentColor,
           id: generateShapeId()
         };
@@ -715,7 +717,7 @@ export default async function initDraw(
         const maxY = Math.max(shape.y, shape.y + shape.height) + tolerance;
         
         if (adjustedX >= minX && adjustedX <= maxX && adjustedY >= minY && adjustedY <= maxY) {
-          return i;
+          return shape.id;
         }
       } else if (shape.type === "circle" || shape.type === "star" || shape.type === "hexagon" || shape.type === "pentagon") {
         let centerX, centerY, radius;
@@ -1171,7 +1173,7 @@ export default async function initDraw(
         }
       }
       isDrawing = false;
-      panStart = null; // Clear panStart to allow new selection
+      panStart = { x: 0, y: 0 }; // Reset pan start for next interaction
       redrawCanvas(); // Redraw with current selection
       console.log("[Mouse] Selection tool - mouseup complete");
       return;
