@@ -1,1 +1,1 @@
-export const JwT_SECRET = process.env.JWT_SECRET || "asdsaasddsa";
+export const JwT_SECRET: string = process.env.JWT_SECRET || "change-this-secret";
