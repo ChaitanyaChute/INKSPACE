@@ -123,6 +123,7 @@ app.post('/signin',async (req,res)=>{
         });
 
     } catch (e) {
+        console.error("Signin error:", e);
         return res.status(500).json({
             message: "Internal server error"
         });
