@@ -27,6 +27,7 @@ export default function CanvasPage({ params }: { params: any }) {
   useEffect(() => {
     const checkAccess = async () => {
       if (!roomId) return;
+      const roomPath = encodeURIComponent(roomId);
       
       const token = localStorage.getItem("token");
       if (!token) {
@@ -36,7 +37,7 @@ export default function CanvasPage({ params }: { params: any }) {
 
       try {
         const res = await axios.get(
-          `${API_URL}/api/v1/room/${roomId}/access`,
+          `${API_URL}/api/v1/room/${roomPath}/access`,
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -50,7 +51,7 @@ export default function CanvasPage({ params }: { params: any }) {
         if (!res.data.hasAccess) {
           try {
             const statusRes = await axios.get(
-              `${API_URL}/api/v1/room/${roomId}/request-status`,
+              `${API_URL}/api/v1/room/${roomPath}/request-status`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`
@@ -94,10 +95,11 @@ export default function CanvasPage({ params }: { params: any }) {
   const handleJoinRoom = async () => {
     setIsJoining(true);
     const token = localStorage.getItem("token");
+    const roomPath = encodeURIComponent(roomId);
 
     try {
       const res = await axios.post(
-        `${API_URL}/api/v1/room/${roomId}/join`,
+        `${API_URL}/api/v1/room/${roomPath}/join`,
         {},
         {
           headers: {
@@ -198,7 +200,7 @@ export default function CanvasPage({ params }: { params: any }) {
             try {
               console.log("[Join Request Polling] Checking request status...");
               const statusRes = await axios.get(
-                `${API_URL}/api/v1/room/${roomId}/request-status`,
+                `${API_URL}/api/v1/room/${roomPath}/request-status`,
                 {
                   headers: {
                     Authorization: `Bearer ${token}`

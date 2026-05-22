@@ -265,7 +265,7 @@ export default function Dashboard() {
       return;
     }
 
-    router.push(`/canvas/${joinRoomId}`);
+    router.push(`/canvas/${encodeURIComponent(joinRoomId)}`);
   };
 
   const handleLogout = () => {

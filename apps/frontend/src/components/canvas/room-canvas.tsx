@@ -411,7 +411,8 @@ export default function RoomCanvas({ roomId }: { roomId: string }) {
   };
 
   const handleShare = () => {
-    const shareUrl = `${APP_URL}/canvas/${roomSlug || roomId}`;
+    const roomPath = encodeURIComponent(roomSlug || roomId);
+    const shareUrl = `${APP_URL}/canvas/${roomPath}`;
     navigator.clipboard.writeText(shareUrl).catch(() => {
       // Fallback for non-secure contexts
       const el = document.createElement("textarea");
