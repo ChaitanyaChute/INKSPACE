@@ -1420,8 +1420,8 @@ export default async function initDraw(
   };
 
   canvas.addEventListener("mousedown", handleMouseDown);
-  canvas.addEventListener("mousemove", handleMouseMove);
-  canvas.addEventListener("mouseup", handleMouseUp);
+  window.addEventListener("mousemove", handleMouseMove);
+  window.addEventListener("mouseup", handleMouseUp);
 
   // Keyboard event handler for text input and undo/redo
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -1480,8 +1480,8 @@ export default async function initDraw(
       if (reconnectTimeout) { clearTimeout(reconnectTimeout); reconnectTimeout = null; }
       console.log("[WebSocket] Socket state before close:", socket.readyState);
       canvas.removeEventListener("mousedown", handleMouseDown);
-      canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("keydown", handleKeyDown);
       clearInterval(cursorBlinkInterval);
       if (socket.readyState === WebSocket.OPEN) {

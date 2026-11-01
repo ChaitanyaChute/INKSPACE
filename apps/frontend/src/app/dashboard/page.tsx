@@ -318,18 +318,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen w-screen bg-[#0a0a0f] flex flex-col relative overflow-hidden">
+    <div className="min-h-screen w-screen bg-[#0b0b0a] flex flex-col relative overflow-hidden noise">
       {/* Background effects */}
-      <div className="absolute top-[-20%] left-[20%] w-[500px] h-[500px] rounded-full bg-indigo-600/6 blur-[120px]" />
-      <div className="absolute bottom-[-10%] right-[10%] w-[400px] h-[400px] rounded-full bg-violet-600/5 blur-[120px]" />
+      <div className="absolute top-[-20%] left-[20%] w-[500px] h-[500px] rounded-full bg-[#ff7448]/8 blur-[120px]" />
+      <div className="absolute bottom-[-10%] right-[10%] w-[400px] h-[400px] rounded-full bg-[#d7a86e]/8 blur-[120px]" />
 
       {/* Header */}
-      <header className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-white/[0.06]">
+      <header className="relative z-10 flex items-center justify-between px-6 lg:px-12 py-5 border-b border-white/10">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-            <Pen className="w-3.5 h-3.5 text-white" />
+          <div className="w-7 h-7 rounded-full bg-[#f3efe6] flex items-center justify-center">
+            <Pen className="w-3.5 h-3.5 text-[#171714]" />
           </div>
-          <span className="text-lg font-bold text-white">Inkspace</span>
+          <span className="text-lg font-semibold tracking-[-0.04em] text-[#f3efe6]">inkspace<span className="text-[#ff7448]">.</span></span>
         </Link>
         <div className="flex items-center gap-2">
           {pendingRequestCount > 0 && (
@@ -339,7 +339,7 @@ export default function Dashboard() {
                 console.log("[Dashboard] Current notifications:", notifications);
                 setShowNotifications(!showNotifications);
               }}
-              className="relative flex items-center gap-2 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] rounded-lg transition-all cursor-pointer"
+              className="relative flex items-center gap-2 px-3 py-1.5 text-sm text-white/55 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-full transition-all cursor-pointer"
             >
               <Bell className="w-3.5 h-3.5" />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
@@ -349,7 +349,7 @@ export default function Dashboard() {
           )}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-400 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] rounded-lg transition-all"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm text-white/55 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-full transition-all"
           >
             <LogOut className="w-3.5 h-3.5" />
             Sign out
@@ -396,10 +396,11 @@ export default function Dashboard() {
       {/* Main Content */}
       <main className="relative z-10 flex-1 flex flex-col items-center justify-start px-4 py-12 overflow-y-auto">
         <div className="max-w-4xl w-full animate-slide-up">
-          <h1 className="text-3xl font-bold text-white mb-1 text-center">
-            Your Workspace
+          <p className="text-[11px] uppercase tracking-[0.22em] text-[#ff9a76] text-center mb-3">Personal studio</p>
+          <h1 className="text-4xl sm:text-5xl font-semibold tracking-[-0.06em] text-[#f3efe6] mb-2 text-center">
+            Your workspace
           </h1>
-          <p className="text-gray-500 text-center mb-8">
+          <p className="text-white/45 text-center mb-10">
             Create a new canvas or join an existing room
           </p>
 
@@ -412,14 +413,14 @@ export default function Dashboard() {
 
           <div className="grid gap-4 mb-8">
             {/* Create Room */}
-            <div className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6">
+            <div className="bg-[#f3efe6] border border-white/10 rounded-[1.5rem] p-6 shadow-2xl shadow-black/10">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center">
-                  <Plus className="w-4 h-4 text-indigo-400" />
+                <div className="w-9 h-9 rounded-full bg-[#ff7448]/15 flex items-center justify-center">
+                <Plus className="w-4 h-4 text-[#e75832]" />
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold text-white">Create Room</h2>
-                  <p className="text-xs text-gray-500">Start a new collaborative canvas</p>
+                  <h2 className="text-base font-semibold text-[#171714]">Create room</h2>
+                  <p className="text-xs text-[#817d73]">Start a new collaborative canvas</p>
                 </div>
               </div>
               
@@ -429,13 +430,13 @@ export default function Dashboard() {
                   placeholder="Enter room name"
                   value={roomName}
                   onChange={(e) => setRoomName(e.target.value)}
-                  className="flex-1 px-3.5 py-2.5 bg-white/[0.04] border border-white/[0.08] text-white rounded-xl text-sm placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all disabled:opacity-50"
+                  className="flex-1 px-3.5 py-2.5 bg-white/70 border border-[#d8d1c4] text-[#171714] rounded-xl text-sm placeholder:text-[#aaa397] focus:outline-none focus:ring-2 focus:ring-[#ff7448]/30 focus:border-[#ff7448] transition-all disabled:opacity-50"
                   disabled={loading}
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 rounded-xl text-white text-sm font-medium transition-all shadow-lg shadow-indigo-600/20 shrink-0"
+                  className="flex items-center gap-2 px-5 py-2.5 bg-[#171714] hover:bg-[#ff7448] disabled:opacity-50 rounded-xl text-[#f3efe6] text-sm font-medium transition-all shrink-0"
                 >
                   {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                   Create
@@ -444,14 +445,14 @@ export default function Dashboard() {
             </div>
 
             {/* Join Room */}
-            <div className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6">
+            <div className="bg-white/[0.04] border border-white/10 rounded-[1.5rem] p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                  <Hash className="w-4 h-4 text-emerald-400" />
+                <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
+                <Hash className="w-4 h-4 text-[#ff9a76]" />
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold text-white">Join Room</h2>
-                  <p className="text-xs text-gray-500">Enter room name or numeric ID (e.g., "myroom" or "6")</p>
+                  <h2 className="text-base font-semibold text-[#f3efe6]">Join room</h2>
+                  <p className="text-xs text-white/40">Enter room name or numeric ID (e.g., "myroom" or "6")</p>
                 </div>
               </div>
               
@@ -461,11 +462,11 @@ export default function Dashboard() {
                   placeholder="Enter room name or ID"
                   value={joinRoomId}
                   onChange={(e) => setJoinRoomId(e.target.value)}
-                  className="flex-1 px-3.5 py-2.5 bg-white/[0.04] border border-white/[0.08] text-white rounded-xl text-sm placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all"
+                  className="flex-1 px-3.5 py-2.5 bg-white/[0.05] border border-white/10 text-[#f3efe6] rounded-xl text-sm placeholder:text-white/25 focus:outline-none focus:ring-2 focus:ring-[#ff7448]/30 focus:border-[#ff7448] transition-all"
                 />
                 <button
                   type="submit"
-                  className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-white text-sm font-medium transition-all shadow-lg shadow-emerald-600/20 shrink-0"
+                  className="flex items-center gap-2 px-5 py-2.5 bg-[#ff7448] hover:bg-[#ff8c68] rounded-xl text-[#171714] text-sm font-semibold transition-all shrink-0"
                 >
                   <ArrowRight className="w-4 h-4" />
                   Join

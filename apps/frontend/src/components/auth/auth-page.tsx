@@ -96,32 +96,32 @@ export default function AuthPage ({isSignin}: AuthPageProps) {
   };
 
   return (
-    <div className="min-h-screen w-screen flex flex-col justify-center items-center bg-[#0a0a0f] px-4 relative overflow-hidden">
+    <div className="min-h-screen w-screen flex flex-col justify-center items-center bg-[#0b0b0a] px-4 relative overflow-hidden noise">
       {/* Background effects */}
-      <div className="absolute top-[-30%] right-[-15%] w-[500px] h-[500px] rounded-full bg-indigo-600/8 blur-[120px]" />
-      <div className="absolute bottom-[-20%] left-[-10%] w-[400px] h-[400px] rounded-full bg-violet-600/8 blur-[120px]" />
+      <div className="absolute top-[-30%] right-[-15%] w-[500px] h-[500px] rounded-full bg-[#ff7448]/10 blur-[120px]" />
+      <div className="absolute bottom-[-20%] left-[-10%] w-[400px] h-[400px] rounded-full bg-[#d7a86e]/10 blur-[120px]" />
 
       <div className="relative z-10 w-full max-w-[420px] animate-slide-up">
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center gap-2 mb-8 group">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-            <Pen className="w-4 h-4 text-white" />
+          <div className="w-8 h-8 rounded-full bg-[#f3efe6] flex items-center justify-center">
+            <Pen className="w-4 h-4 text-[#171714]" />
           </div>
-          <span className="text-xl font-bold text-white">Inkspace</span>
+          <span className="text-xl font-semibold tracking-[-0.04em] text-[#f3efe6]">inkspace<span className="text-[#ff7448]">.</span></span>
         </Link>
 
         {/* Card */}
-        <div className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-8 backdrop-blur-sm">
-          <h1 className="text-2xl font-bold text-white mb-1 text-center">
+        <div className="bg-[#f3efe6] border border-white/10 rounded-[1.75rem] p-8 shadow-2xl shadow-black/20">
+          <h1 className="text-2xl font-semibold tracking-[-0.04em] text-[#171714] mb-1 text-center">
             {isSignin ? "Welcome back" : "Create your account"}
           </h1>
-          <p className="text-sm text-gray-500 mb-6 text-center">
+          <p className="text-sm text-[#817d73] mb-6 text-center">
             {isSignin ? "Sign in to continue to your workspace" : "Get started with Inkspace for free"}
           </p>
 
           {serverError && (
-            <div className="w-full p-3 mb-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-300 text-sm flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
+            <div className="w-full p-3 mb-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
               {serverError}
             </div>
           )}
@@ -129,9 +129,9 @@ export default function AuthPage ({isSignin}: AuthPageProps) {
           <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
             {/* Username - always shown */}
             <div>
-              <label className="block text-xs font-medium text-gray-400 mb-1.5">Username</label>
+              <label className="block text-xs font-medium text-[#514e47] mb-1.5">Username</label>
               <input 
-                className="w-full px-3.5 py-2.5 bg-white/[0.04] border border-white/[0.08] text-white rounded-xl text-sm placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all disabled:opacity-50" 
+                className="w-full px-3.5 py-2.5 bg-white/70 border border-[#d8d1c4] text-[#171714] rounded-xl text-sm placeholder:text-[#aaa397] focus:outline-none focus:ring-2 focus:ring-[#ff7448]/30 focus:border-[#ff7448] transition-all disabled:opacity-50" 
                 type="text" 
                 placeholder="Enter your username"
                 value={username}
@@ -146,9 +146,9 @@ export default function AuthPage ({isSignin}: AuthPageProps) {
             {/* Email - signup only */}
             {!isSignin && (
               <div>
-                <label className="block text-xs font-medium text-gray-400 mb-1.5">Email</label>
+                <label className="block text-xs font-medium text-[#514e47] mb-1.5">Email</label>
                 <input 
-                  className="w-full px-3.5 py-2.5 bg-white/[0.04] border border-white/[0.08] text-white rounded-xl text-sm placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all disabled:opacity-50" 
+                  className="w-full px-3.5 py-2.5 bg-white/70 border border-[#d8d1c4] text-[#171714] rounded-xl text-sm placeholder:text-[#aaa397] focus:outline-none focus:ring-2 focus:ring-[#ff7448]/30 focus:border-[#ff7448] transition-all disabled:opacity-50" 
                   type="email" 
                   placeholder="you@example.com"
                   value={email}
@@ -163,10 +163,10 @@ export default function AuthPage ({isSignin}: AuthPageProps) {
 
             {/* Password */}
             <div>
-              <label className="block text-xs font-medium text-gray-400 mb-1.5">Password</label>
+              <label className="block text-xs font-medium text-[#514e47] mb-1.5">Password</label>
               <div className="relative">
                 <input 
-                  className="w-full px-3.5 py-2.5 pr-10 bg-white/[0.04] border border-white/[0.08] text-white rounded-xl text-sm placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all disabled:opacity-50" 
+                  className="w-full px-3.5 py-2.5 pr-10 bg-white/70 border border-[#d8d1c4] text-[#171714] rounded-xl text-sm placeholder:text-[#aaa397] focus:outline-none focus:ring-2 focus:ring-[#ff7448]/30 focus:border-[#ff7448] transition-all disabled:opacity-50" 
                   type={showPassword ? "text" : "password"}
                   placeholder={isSignin ? "Enter your password" : "Min 6 chars, Aa1@"}
                   value={password}
@@ -176,7 +176,7 @@ export default function AuthPage ({isSignin}: AuthPageProps) {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#817d73] hover:text-[#171714] transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -185,12 +185,12 @@ export default function AuthPage ({isSignin}: AuthPageProps) {
                 <p className="text-red-400 text-xs mt-1.5">{errors.password}</p>
               )}
               {!isSignin && !errors.password && (
-                <p className="text-gray-600 text-xs mt-1.5">Uppercase, lowercase, number & special character required</p>
+                <p className="text-[#aaa397] text-xs mt-1.5">Uppercase, lowercase, number & special character required</p>
               )}
             </div>
 
             <button 
-              className="mt-1 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:hover:bg-indigo-600 p-2.5 w-full rounded-xl text-white text-sm font-semibold transition-all shadow-lg shadow-indigo-600/20" 
+              className="mt-1 flex items-center justify-center gap-2 bg-[#171714] hover:bg-[#ff7448] disabled:opacity-50 p-2.5 w-full rounded-xl text-[#f3efe6] text-sm font-semibold transition-all shadow-lg shadow-black/10" 
               type="submit"
               disabled={loading}
             >
@@ -207,11 +207,11 @@ export default function AuthPage ({isSignin}: AuthPageProps) {
         </div>
 
         {/* Footer link */}
-        <p className="text-center text-gray-500 text-sm mt-6">
+        <p className="text-center text-white/45 text-sm mt-6">
           {isSignin ? "Don\u2019t have an account? " : "Already have an account? "}
           <Link 
             href={isSignin ? "/signup" : "/signin"} 
-            className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors"
+            className="text-[#ff9a76] hover:text-[#ff7448] font-medium transition-colors"
           >
             {isSignin ? "Sign up" : "Sign in"}
           </Link>

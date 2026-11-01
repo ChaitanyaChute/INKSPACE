@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Pen, Users, Zap } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Pen, Users, Zap, Sparkles } from "lucide-react";
 
 export default function Home() {
   const router = useRouter();
@@ -16,38 +16,50 @@ export default function Home() {
   }, [router]);
 
   return (
-    <div className="min-h-screen w-screen bg-[#0a0a0f] flex flex-col items-center justify-center px-4 relative overflow-hidden">
-      {/* Background gradient orbs */}
-      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-600/10 blur-[120px]" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-violet-600/10 blur-[120px]" />
+    <div className="min-h-screen w-screen bg-[#0b0b0a] flex flex-col px-5 sm:px-10 lg:px-16 relative overflow-hidden noise">
+      <div className="absolute inset-0 premium-grid pointer-events-none" />
+      <div className="absolute -top-56 right-[-10%] w-[620px] h-[620px] rounded-full bg-[#ff7448]/10 blur-[150px]" />
+      <div className="absolute bottom-[-30%] left-[-8%] w-[520px] h-[520px] rounded-full bg-[#d7a86e]/10 blur-[150px]" />
 
-      <div className="relative z-10 max-w-2xl w-full text-center animate-slide-up">
-        {/* Logo mark */}
-        <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-gray-400">
-          <Pen className="w-3.5 h-3.5 text-indigo-400" />
-          Real-time collaborative whiteboard
+      <nav className="relative z-10 flex items-center justify-between py-6 border-b border-white/10">
+        <Link href="/" className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f3efe6] text-[#171714]"><Pen className="h-4 w-4" /></span>
+          <span className="text-[15px] font-semibold tracking-[-0.03em] text-[#f3efe6]">inkspace<span className="text-[#ff7448]">.</span></span>
+        </Link>
+        <div className="hidden sm:flex items-center gap-7 text-[11px] uppercase tracking-[0.18em] text-white/45">
+          <span>Workspace</span><span>Real-time</span><span>For teams</span>
         </div>
+        <Link href="/signin" className="flex items-center gap-2 text-xs font-medium text-[#f3efe6] hover:text-[#ff7448] transition-colors">
+          Sign in <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
+      </nav>
 
-        <h1 className="text-6xl sm:text-7xl font-bold text-white mb-4 tracking-tight">
-          Ink<span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">space</span>
-        </h1>
-        <p className="text-lg text-gray-400 mb-10 max-w-md mx-auto leading-relaxed">
-          Draw, brainstorm, and create together in real-time. Share your canvas with anyone, anywhere.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-16">
+      <div className="relative z-10 flex flex-1 items-center py-16 sm:py-24">
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="max-w-3xl animate-slide-up">
+            <div className="inline-flex items-center gap-2 mb-8 text-[11px] uppercase tracking-[0.22em] text-[#ff9a76]">
+              <Sparkles className="h-3.5 w-3.5" /> A calmer space to think together
+            </div>
+            <h1 className="max-w-4xl text-6xl sm:text-8xl lg:text-[8.5rem] leading-[0.86] font-semibold tracking-[-0.08em] text-[#f3efe6]">
+              Make room<br /><span className="text-[#ff7448]">for ideas.</span>
+            </h1>
+            <p className="mt-8 max-w-lg text-base sm:text-lg leading-relaxed text-white/50">
+              Inkspace is a focused, real-time canvas for teams who want to sketch, shape, and share the next thing.
+            </p>
+          </div>
+          <div className="mt-12 flex flex-col sm:flex-row gap-3 animate-slide-up">
           <Link href="/signup">
             <button
-              className="cursor-pointer flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-8 py-3.5 rounded-xl text-white font-semibold transition-all shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/30 hover:-translate-y-0.5"
+              className="cursor-pointer flex items-center justify-center gap-3 bg-[#f3efe6] hover:bg-white px-7 py-3.5 rounded-full text-[#171714] text-sm font-semibold transition-all hover:-translate-y-0.5"
               type="button"
             >
-              Get Started
+              Start a canvas
               <ArrowRight className="w-4 h-4" />
             </button>
           </Link>
           <Link href="/signin">
             <button
-              className="cursor-pointer flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-8 py-3.5 rounded-xl text-white font-semibold transition-all hover:-translate-y-0.5"
+              className="cursor-pointer flex items-center justify-center gap-2 bg-white/[0.04] hover:bg-white/[0.09] border border-white/15 px-7 py-3.5 rounded-full text-[#f3efe6] text-sm font-semibold transition-all hover:-translate-y-0.5"
               type="button"
             >
               Sign In
@@ -55,28 +67,22 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Feature cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-          <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05] transition-colors">
-            <div className="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center mb-3">
-              <Pen className="w-4 h-4 text-indigo-400" />
-            </div>
-            <h3 className="text-sm font-semibold text-white mb-1">Multiple Tools</h3>
-            <p className="text-xs text-gray-500 leading-relaxed">Rectangles, circles, arrows, pencil, text, and more.</p>
           </div>
-          <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05] transition-colors">
-            <div className="w-9 h-9 rounded-lg bg-violet-500/10 flex items-center justify-center mb-3">
-              <Users className="w-4 h-4 text-violet-400" />
-            </div>
-            <h3 className="text-sm font-semibold text-white mb-1">Live Collaboration</h3>
-            <p className="text-xs text-gray-500 leading-relaxed">See changes from others appear instantly on your canvas.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px mt-24 border-y border-white/10 text-left max-w-4xl">
+          <div className="py-6 sm:pr-8 sm:border-r border-white/10">
+            <div className="flex items-center gap-2 mb-3 text-[#ff7448]"><Pen className="w-4 h-4" /><span className="text-[10px] uppercase tracking-[0.2em]">01 / Create</span></div>
+            <h3 className="text-sm font-medium text-[#f3efe6] mb-1">Tools that disappear</h3>
+            <p className="text-xs text-white/40 leading-relaxed">A clean canvas that keeps your thinking in focus.</p>
           </div>
-          <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05] transition-colors">
-            <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-3">
-              <Zap className="w-4 h-4 text-emerald-400" />
-            </div>
-            <h3 className="text-sm font-semibold text-white mb-1">Room Management</h3>
-            <p className="text-xs text-gray-500 leading-relaxed">Invite members, manage access, and control your rooms.</p>
+          <div className="py-6 sm:px-8 sm:border-r border-white/10">
+            <div className="flex items-center gap-2 mb-3 text-[#ff7448]"><Users className="w-4 h-4" /><span className="text-[10px] uppercase tracking-[0.2em]">02 / Connect</span></div>
+            <h3 className="text-sm font-medium text-[#f3efe6] mb-1">Same room, in real time</h3>
+            <p className="text-xs text-white/40 leading-relaxed">Invite your team and watch ideas take shape together.</p>
+          </div>
+          <div className="py-6 sm:pl-8">
+            <div className="flex items-center gap-2 mb-3 text-[#ff7448]"><Zap className="w-4 h-4" /><span className="text-[10px] uppercase tracking-[0.2em]">03 / Move</span></div>
+            <h3 className="text-sm font-medium text-[#f3efe6] mb-1">From spark to shared</h3>
+            <p className="text-xs text-white/40 leading-relaxed">Rooms, history, and access controls when you need them.</p>
           </div>
         </div>
       </div>
